@@ -1,0 +1,14 @@
+module GitHubActionPkl
+
+typealias Action = "release"
+
+local actions = new Mapping<Action, Any> {
+  ["release"] = import("GitHubActionPklRelease.pkl")
+}
+
+action: Action
+
+output {
+  text = "# Generated file. DO NOT EDIT.\n" + super.text
+  value = actions[action]
+}

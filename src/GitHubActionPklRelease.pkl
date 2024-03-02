@@ -1,0 +1,46 @@
+amends "GitHubAction.pkl"
+
+on {
+  push {
+    tags {
+      "*"
+    }
+  }
+}
+
+jobs {
+  ["build-and-upload"] = new {
+    `runs-on` = "ubuntu-latest"
+    steps {
+      new {
+        name = "checkout"
+        uses = "actions/checkout@v3"
+      }
+      new {
+        uses = "actions/setup-java@v4"
+        with {
+          ["distribution"] = "temurin"
+          ["java-version"] = "17"
+          ["cache"] = "gradle"
+        }
+      }
+      new {
+        uses = "gradle/actions/setup-gradle@v3"
+      }
+      new {
+        name = "build"
+        env {
+          ["VERSION"] = "${{ github.ref_name }}"
+        }
+        run = "./gradlew makePackages"
+      }
+      new {
+        name = "release"
+        uses = "softprops/action-gh-release@v1"
+        with {
+          ["files"] = "build/generated/pkl/packages/*"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@ModuleInfo { minPklVersion = "0.25.1" }
+module GitHubAction
+
+class WithTags {
+  tags: Listing<String>?
+}
+
+typealias ActivityType = "assigned" | "unassigned" | "labeled" | "unlabeled" | "opened" | "edited" | "closed" | "reopened"| "synchronize" | "converted_to_draft" | "locked" | "unlocked" | "enqueued" | "dequeued" | "milestoned" | "demilestoned" | "ready_for_review" | "review_requested" | "review_request_removed" | "auto_merge_enabled" | "auto_merge_disabled"
+
+class On {
+  push: WithTags?
+  pull_request: Listing<ActivityType>?
+}
+
+/// The events to trigger on
+on: On
+
+class Permissions {
+  contents: "write"
+}
+
+permissions: Permissions
+
+/// A Step to run
+class Step {
+  name: String?
+  uses: String?
+  with: Mapping<String, String>?
+  env: Mapping<String, String>?
+  run: String?
+}
+
+class Job {
+  // todo: sum type
+  `runs-on`: String
+  steps: Listing<Step>
+}
+
+jobs: Mapping<String, Job>
+
+output {
+  // todo: inject file name
+  text = "# Generated file. DO NOT EDIT.\n" + super.text
+}

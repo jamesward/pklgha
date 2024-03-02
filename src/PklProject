@@ -1,0 +1,17 @@
+amends "pkl:Project"
+
+package {
+  name = "pklgha"
+  authors {
+    "James Ward <james@jamesward.com>"
+  }
+  version = read?("env:VERSION")?.replaceFirst("\(name)@", "") ?? "0.0.1-SNAPSHOT"
+  baseUri = "package://jamesward.github.com/pklgha"
+  packageZipUrl = "https://github.com/jamesward/pklgha/releases/download/\(name)@\(version)/\(name)@\(version).zip"
+  sourceCode = "https://github.com/jamesward/pklgha"
+  sourceCodeUrlScheme = "https://github.com/jamesward/pklgha/blob/\(version)/generated-package%{path}#%{line}-%{endLine}"
+  license = "Apache-2.0"
+  description = """
+    Pkl Modules for GitHub Actions
+  """
+}
