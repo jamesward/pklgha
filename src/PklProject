@@ -5,11 +5,11 @@ package {
   authors {
     "James Ward <james@jamesward.com>"
   }
-  version = read?("env:VERSION") ?? "0.0.1-SNAPSHOT"
+  version = read?("env:VERSION")?.replaceFirst("\(name)@", "") ?? "0.0.1-SNAPSHOT"
   baseUri = "package://jamesward.github.com/pklgha"
-  packageZipUrl = "https://github.com/jamesward/pklgha/releases/download/\(version)/\(version).zip"
+  packageZipUrl = "https://github.com/jamesward/pklgha/releases/download/\(name)@\(version)/\(name)@\(version).zip"
   sourceCode = "https://github.com/jamesward/pklgha"
-  sourceCodeUrlScheme = "\(sourceCode)/blob/\(version)%{path}#L%{line}-L%{endLine}"
+  sourceCodeUrlScheme = "\(sourceCode)/blob/\(name)@\(version)%{path}#L%{line}-L%{endLine}"
   documentation = "https://jamesward.github.io/pklgha"
   license = "Apache-2.0"
   description = """
