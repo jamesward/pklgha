@@ -7,7 +7,7 @@ Pkl GitHub Actions
 
 `.github/workflows/hello.pkl`
 ```
-amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.7#/GitHubAction.pkl"
+amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.9#/GitHubAction.pkl"
 
 on {
   push {
@@ -40,7 +40,7 @@ pkl eval -f yaml -o .github/workflows/hello.yaml .github/workflows/hello.pkl
 1. Enable publishing GitHub Pages from GitHub Actions via `https://github.com/<your org>/<your repo>/settings/pages`
 2. Create `.github/workflows/release.pkl`
     ```
-    amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.7#/GitHubActionPkl.pkl"
+    amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.9#/GitHubActionPkl.pkl"
 
     action = "release"
     ```
