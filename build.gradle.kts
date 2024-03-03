@@ -20,7 +20,7 @@ pkl {
     pkldocGenerators {
       register("pkldoc") {
         sourceModules =
-          listOf(uri("package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@$maybeVersion"))
+          listOf(uri("package://github.com/jamesward/pklgha/releases/download/pklgha@$maybeVersion/pklgha@$maybeVersion"))
       }
     }
   }
