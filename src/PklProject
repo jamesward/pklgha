@@ -10,6 +10,7 @@ package {
   packageZipUrl = "https://github.com/jamesward/pklgha/releases/download/\(name)@\(version)/\(name)@\(version).zip"
   sourceCode = "https://github.com/jamesward/pklgha"
   sourceCodeUrlScheme = "https://github.com/jamesward/pklgha/blob/\(version)/generated-package%{path}#%{line}-%{endLine}"
+  documentation = "https://jamesward.github.io/pklgha"
   license = "Apache-2.0"
   description = """
     Pkl Modules for GitHub Actions
