@@ -6,10 +6,10 @@ function sbtTest(taskString: String(!isEmpty)): GitHubAction.Job = new GitHubAct
   `runs-on` = "ubuntu-latest"
   steps {
     new {
-      uses = "actions/checkout@v2"
+      uses = "actions/checkout@v4"
     }
     new {
-      uses = "actions/setup-java@v3"
+      uses = "actions/setup-java@v4"
       with {
         ["distribution"] = "temurin"
         ["java-version"] = "11"
