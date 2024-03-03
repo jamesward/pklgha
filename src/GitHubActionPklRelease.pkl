@@ -11,6 +11,11 @@ on {
 jobs {
   ["build-and-upload"] = new {
     `runs-on` = "ubuntu-latest"
+
+    permissions {
+      contents = "write"
+    }
+
     steps {
       new {
         name = "checkout"
@@ -40,6 +45,43 @@ jobs {
         with {
           ["files"] = "build/generated/pkl/packages/*"
         }
+      }
+      new {
+        name = "create docs"
+        env {
+          ["VERSION"] = "${{ github.ref_name }}"
+        }
+        run = "./gradlew pkldoc"
+      }
+      new {
+        name = "setup pages"
+        uses = "actions/configure-pages@v4"
+      }
+      new {
+        name = "upload artifact"
+        uses = "actions/upload-pages-artifact@v3"
+        with {
+          ["path"] = "build/pkldoc/pkldoc"
+        }
+      }
+    }
+  }
+  ["deploy-pages"] = new {
+    `runs-on` = "ubuntu-latest"
+    needs = "build-and-upload"
+    permissions {
+      pages = "write"
+      `id-token` = "write"
+    }
+    environment {
+      name = "github-pages"
+      url = "${{ steps.deployment.outputs.page_url } }"
+    }
+    steps {
+      new {
+        name = "deploy pages"
+        id = "deployment"
+        uses = "actions/deploy-pages@v4"
       }
     }
   }

@@ -15,14 +15,19 @@ class On {
 /// The events to trigger on
 on: On
 
+typealias Permission = "read" | "write"
+
 class Permissions {
-  contents: "write"
+  contents: Permission?
+  pages: Permission?
+  `id-token`: Permission?
 }
 
-permissions: Permissions
+permissions: Permissions?
 
 /// A Step to run
 class Step {
+  id: String?
   name: String?
   uses: String?
   with: Mapping<String, String>?
@@ -30,10 +35,18 @@ class Step {
   run: String?
 }
 
+class Environment {
+  name: String
+  url: String?
+}
+
 class Job {
   // todo: sum type
   `runs-on`: String
   steps: Listing<Step>
+  needs: String?
+  permissions: Permissions?
+  environment: Environment?
 }
 
 jobs: Mapping<String, Job>

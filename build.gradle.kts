@@ -1,12 +1,13 @@
 plugins {
-  id("org.pkl-lang") version "0.25.1"
+  id("org.pkl-lang") version "0.25.2"
 }
+
+val maybeVersion = System.getenv("VERSION")
 
 pkl {
   project {
     packagers {
       register("makePackages") {
-        val maybeVersion = System.getenv("VERSION")
         if (maybeVersion != null) {
           environmentVariables.put("VERSION", maybeVersion)
         }
@@ -15,12 +16,12 @@ pkl {
     }
   }
   // ./gradlew pkldoc
-  // An unexpected error has occurred. Would you mind filing a bug report?
-  /*
-  pkldocGenerators {
-    register("pkldoc") {
-      sourceModules.addAll(files("src/doc-package-info.pkl", "src/project.pkl"))
+  if (maybeVersion != null) {
+    pkldocGenerators {
+      register("pkldoc") {
+        sourceModules =
+          listOf(uri("package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@$maybeVersion"))
+      }
     }
   }
-   */
 }
