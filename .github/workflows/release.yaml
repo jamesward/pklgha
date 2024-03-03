@@ -3,8 +3,6 @@
   push:
     tags:
     - '*'
-permissions:
-  contents: write
 jobs:
   build-and-upload:
     runs-on: ubuntu-latest
@@ -25,3 +23,28 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/generated/pkl/packages/*
+    - name: create docs
+      env:
+        VERSION: ${{ github.ref_name }}
+      run: ./gradlew pkldoc
+    - name: setup pages
+      uses: actions/configure-pages@v4
+    - name: upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: build/pkldoc/pkldoc
+    permissions:
+      contents: write
+  deploy-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - id: deployment
+      name: deploy pages
+      uses: actions/deploy-pages@v4
+    needs: build-and-upload
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url } }
