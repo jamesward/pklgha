@@ -1,0 +1,25 @@
+module GitHubActionJava
+
+import "GitHubAction.pkl"
+
+function setupJava(distribution: String?, javaVersion: String?, cache: String?): GitHubAction.Step = new {
+  uses = "actions/setup-java@v4"
+  with {
+    ["distribution"] = distribution ?? "temurin"
+    ["java-version"] = javaVersion ?? "20"
+    ["cache"] = cache
+  }
+}
+
+function gradleTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+
+  setupJava(null, null, "gradle")
+
+  new {
+    run = "./gradlew \(taskString ?? "test")"
+    `working-directory` = workingDirectory
+  }
+}

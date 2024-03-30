@@ -46,7 +46,7 @@ class Step {
   id: String?
   name: String?
   uses: String?
-  with: Mapping<String, String>?
+  with: Mapping<String, String?>?
   env: Mapping<String, String>?
   run: String?
   `working-directory`: String?
@@ -57,6 +57,14 @@ class Environment {
   url: String?
 }
 
+class Run {
+  `working-directory`: String?
+}
+
+class Defaults {
+  run: Run?
+}
+
 class Job {
   // todo: sum type
   `runs-on`: String
@@ -65,6 +73,7 @@ class Job {
   needs: String?
   permissions: Permissions?
   environment: Environment?
+  defaults: Defaults?
 }
 
 jobs: Mapping<String, Job>
