@@ -2,22 +2,25 @@ module GitHubActionScala
 
 import "GitHubAction.pkl"
 
-function sbtTest(taskString: String(!isEmpty)): GitHubAction.Job = new GitHubAction.Job {
-  `runs-on` = "ubuntu-latest"
-  steps {
-    new {
-      uses = "actions/checkout@v4"
-    }
-    new {
-      uses = "actions/setup-java@v4"
-      with {
-        ["distribution"] = "temurin"
-        ["java-version"] = "11"
-        ["cache"] = "sbt"
-      }
-    }
-    new {
-      run = "./bin/sbt \(taskString)"
+function sbtTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+  new {
+    uses = "actions/setup-java@v4"
+    with {
+      ["distribution"] = "temurin"
+      ["java-version"] = "11"
+      ["cache"] = "sbt"
     }
   }
+  new {
+    run = "sbt \(taskString ?? "test")"
+    `working-directory` = workingDirectory
+  }
+}
+
+function sbtTestJob(taskString: String(!isEmpty)?, workingDirectory: String?): GitHubAction.Job = new {
+  `runs-on` = "ubuntu-latest"
+  steps = sbtTestSteps(taskString, workingDirectory)
 }

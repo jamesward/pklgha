@@ -1,15 +1,31 @@
 @ModuleInfo { minPklVersion = "0.25.1" }
 module GitHubAction
 
-class WithTags {
-  tags: Listing<String>?
-}
 
 typealias ActivityType = "assigned" | "unassigned" | "labeled" | "unlabeled" | "opened" | "edited" | "closed" | "reopened"| "synchronize" | "converted_to_draft" | "locked" | "unlocked" | "enqueued" | "dequeued" | "milestoned" | "demilestoned" | "ready_for_review" | "review_requested" | "review_request_removed" | "auto_merge_enabled" | "auto_merge_disabled"
 
+typealias WorkFlowType = "completed"
+
+
+class Push {
+  tags: Listing<String>?
+  paths: Listing<String>?
+}
+
+class WorkflowRun {
+  workflows: Listing<String>?
+  types: Listing<WorkFlowType>?
+}
+
+class PullRequest {
+  types: Listing<ActivityType>?
+  paths: Listing<String>?
+}
+
 class On {
-  push: WithTags?
-  pull_request: Listing<ActivityType>?
+  push: Push?
+  pull_request: PullRequest?
+  workflow_run: WorkflowRun?
 }
 
 /// The events to trigger on
@@ -33,6 +49,7 @@ class Step {
   with: Mapping<String, String>?
   env: Mapping<String, String>?
   run: String?
+  `working-directory`: String?
 }
 
 class Environment {

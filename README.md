@@ -16,7 +16,7 @@ on {
 }
 
 jobs {
-  ["hello"] = = new {
+  ["hello"] = new {
     `runs-on` = "ubuntu-latest"
 
     steps {
@@ -46,7 +46,7 @@ pkl eval -f yaml -o .github/workflows/hello.yaml .github/workflows/hello.pkl
     ```
 3. Create the GitHub Action Yaml:
     ```
-    pkl eval -f yaml -o .github/workflows/release.yaml .github/workflows/release.pkl 
+    pkl eval -f yaml -o .github/workflows/release.yaml .github/workflows/release.pkl
     ```
 
 
@@ -54,7 +54,7 @@ pkl eval -f yaml -o .github/workflows/hello.yaml .github/workflows/hello.pkl
 
 Update
 ```
-pkl eval -f yaml -o .github/workflows/release.yaml .github/workflows/release.pkl 
+pkl eval -f yaml -o .github/workflows/release.yaml .github/workflows/release.pkl
 ```
 
 Release
