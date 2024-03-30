@@ -60,6 +60,7 @@ class Environment {
 class Job {
   // todo: sum type
   `runs-on`: String
+  `if`: String?
   steps: Listing<Step>
   needs: String?
   permissions: Permissions?

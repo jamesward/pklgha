@@ -7,7 +7,7 @@ Pkl GitHub Actions
 
 `.github/workflows/hello.pkl`
 ```
-amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.9#/GitHubAction.pkl"
+amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.11#/GitHubAction.pkl"
 
 on {
   push {
@@ -58,7 +58,9 @@ pkl eval -f yaml -o .github/workflows/release.yaml .github/workflows/release.pkl
 ```
 
 Release
-```
-git tag pklgha@0.0.x
-git push --atomic origin main pklgha@0.0.x
-```
+1. Update the version above
+1. Tag and push
+   ```
+   git tag pklgha@0.0.x
+   git push --atomic origin main pklgha@0.0.x
+   ```
