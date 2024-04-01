@@ -1,0 +1,25 @@
+module GitHubActionOCaml
+
+import "GitHubAction.pkl"
+
+function testSteps(taskString: String(!isEmpty)?, version: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+  new {
+    name = "Set-up OCaml 5.1"
+    uses = "ocaml/setup-ocaml@v2"
+    with {
+      ["ocaml-compiler"] = version
+      ["dune-cache"] = "true"
+    }
+  }
+  new {
+    name = "Run tests"
+    run = """
+      opam install . --deps-only --with-test
+      ulimit -n 16000
+      opam exec -- dune \(taskString ?? "runtest") --force
+      """
+  }
+}

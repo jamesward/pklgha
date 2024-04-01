@@ -1,0 +1,19 @@
+module GitHubActionDotnet
+
+import "GitHubAction.pkl"
+
+function testSteps(taskString: String(!isEmpty)?, version: String?, workingDirectory: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+  new {
+    uses = "actions/setup-dotnet@v4"
+    with {
+      ["dotnet-version"] = version
+    }
+  }
+  new {
+    run = "dotnet \(taskString ?? "test")"
+    `working-directory` = workingDirectory
+  }
+}

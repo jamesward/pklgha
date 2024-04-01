@@ -1,0 +1,15 @@
+module GitHubActionElm
+
+import "GitHubAction.pkl"
+
+function setupElm(version: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+  new {
+    uses = "jorelali/setup-elm@v5"
+    with {
+      ["elm-version"] = version
+    }
+  }
+}

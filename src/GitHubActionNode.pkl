@@ -1,0 +1,23 @@
+module GitHubActionNode
+
+import "GitHubAction.pkl"
+
+function testSteps(taskString: String(!isEmpty)?, version: String?, cacheDependencyFile: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+  new {
+    uses = "actions/setup-node@v4"
+    with {
+      ["node-version"] = version
+      ["cache"] = "npm"
+      ["cache-dependency-path"] = cacheDependencyFile ?? "package-lock.json"
+    }
+  }
+  new {
+    run = """
+      npm ci
+      npm \(taskString ?? "test")
+      """
+  }
+}

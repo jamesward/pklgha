@@ -1,0 +1,16 @@
+module GitHubActionSwift
+
+import "GitHubAction.pkl"
+
+function testSteps(): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+  new {
+    name = "Setup Docker on macOS"
+    uses = "douglascamata/setup-docker-macos-action@v1-alpha"
+  }
+  new {
+    run = "swift test -c release"
+  }
+}

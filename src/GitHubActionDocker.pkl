@@ -1,0 +1,78 @@
+module GitHubActionDocker
+
+import "GitHubAction.pkl"
+
+typealias Arch = "amd64" | "aarch64"
+
+function buildPushJob(arch: Arch, context: String?, file: String?): GitHubAction.Job = new {
+  `runs-on` = "ubuntu-latest"
+  steps {
+    new {
+      uses = "actions/checkout@v4"
+    }
+    new {
+      uses = "docker/login-action@v3"
+      with {
+        ["registry"] = "ghcr.io"
+        ["username"] = "${{ github.actor }}"
+        ["password"] = "${{ secrets.GITHUB_TOKEN }}"
+      }
+    }
+    new {
+      id = "meta"
+      uses = "docker/metadata-action@v5"
+      with {
+        ["images"] = "ghcr.io/${{ github.repository }}"
+        ["tags"] = """
+          type=sha,suffix=-\(arch)
+          type=raw,value=latest-\(arch),enable={{is_default_branch}}
+          """
+      }
+    }
+    new {
+      uses = "docker/setup-buildx-action@v3"
+    }
+    new {
+      uses = "docker/build-push-action@v5"
+      with {
+        ["platforms"] = if (arch == "amd64") "linux/amd64" else if (arch == "aarch64") "linux/arm64/v8" else null
+        ["context"] = context
+        ["file"] = file.ifNonNull((f) -> "\(context ?? ".")/\(f)")
+        ["push"] = "${{ github.actor == github.repository_owner }}"
+        ["tags"] = "${{ steps.meta.outputs.tags }}"
+        ["labels"] = "${{ steps.meta.outputs.labels }}"
+      }
+    }
+  }
+}
+
+function create(target: String, from: Listing<String>): GitHubAction.Job = new {
+  steps {
+    new {
+      uses = "docker/login-action@v3"
+      with {
+        ["registry"] = "ghcr.io"
+        ["username"] = "${{ github.actor }}"
+        ["password"] = "${{ secrets.GITHUB_TOKEN }}"
+      }
+    }
+    new {
+      id = "meta"
+      uses = "docker/metadata-action@v5"
+      with {
+        ["images"] = "ghcr.io/${{ github.repository }}"
+        ["tags"] = "type=sha"
+      }
+    }
+    new {
+      uses = "docker/setup-buildx-action@v3"
+    }
+    new {
+      run = """
+        docker buildx imagetools create \\
+          -t \(target) \\
+          \(from.join(" "))
+        """
+    }
+  }
+}

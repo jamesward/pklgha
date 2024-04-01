@@ -1,6 +1,19 @@
 @ModuleInfo { minPklVersion = "0.25.1" }
 module GitHubAction
 
+hidden Docker = import("GitHubActionDocker.pkl")
+hidden Dotnet = import("GitHubActionDotnet.pkl")
+hidden Elm = import("GitHubActionElm.pkl")
+hidden Go = import("GitHubActionGo.pkl")
+hidden Pkl = import("GitHubActionPkl.pkl")
+hidden Java = import("GitHubActionJava.pkl")
+hidden Nix = import("GitHubActionNix.pkl")
+hidden Node = import("GitHubActionNode.pkl")
+hidden OCaml = import("GitHubActionOCaml.pkl")
+hidden Python = import("GitHubActionPython.pkl")
+hidden Scala = import("GitHubActionScala.pkl")
+hidden Swift = import("GitHubActionSwift.pkl")
+
 
 typealias ActivityType = "assigned" | "unassigned" | "labeled" | "unlabeled" | "opened" | "edited" | "closed" | "reopened"| "synchronize" | "converted_to_draft" | "locked" | "unlocked" | "enqueued" | "dequeued" | "milestoned" | "demilestoned" | "ready_for_review" | "review_requested" | "review_request_removed" | "auto_merge_enabled" | "auto_merge_disabled"
 
@@ -44,6 +57,7 @@ permissions: Permissions?
 /// A Step to run
 class Step {
   id: String?
+  `if`: String?
   name: String?
   uses: String?
   with: Mapping<String, String?>?
@@ -65,12 +79,14 @@ class Defaults {
   run: Run?
 }
 
+typealias Needs = String | Listing<String>
+
 class Job {
   // todo: sum type
   `runs-on`: String
   `if`: String?
   steps: Listing<Step>
-  needs: String?
+  needs: Needs?
   permissions: Permissions?
   environment: Environment?
   defaults: Defaults?
