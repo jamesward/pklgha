@@ -35,10 +35,15 @@ class PullRequest {
   paths: Listing<String>?
 }
 
+class WorkflowDispatch {
+  inputs: Dynamic?
+}
+
 class On {
   push: Push?
   pull_request: PullRequest?
   workflow_run: WorkflowRun?
+  workflow_dispatch: WorkflowDispatch?
 }
 
 /// The events to trigger on
@@ -78,6 +83,13 @@ class Run {
 class Defaults {
   run: Run?
 }
+
+class Concurrency {
+  group: String
+  `cancel-in-progress`: Boolean
+}
+
+concurrency: Concurrency?
 
 typealias Needs = String | Listing<String>
 

@@ -8,6 +8,7 @@ on {
   }
 }
 
+// todo: refactor with GitHubActionJava
 jobs {
   ["build-and-upload"] = new {
     `runs-on` = "ubuntu-latest"
