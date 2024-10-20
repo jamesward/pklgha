@@ -7,7 +7,7 @@ function setupElm(version: String?): Listing<GitHubAction.Step> = new {
     uses = "actions/checkout@v4"
   }
   new {
-    uses = "jorelali/setup-elm@v5"
+    uses = "jorelali/setup-elm@v6"
     with {
       ["elm-version"] = version
     }
