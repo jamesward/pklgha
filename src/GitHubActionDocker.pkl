@@ -33,7 +33,7 @@ function buildPushJob(arch: Arch, context: String?, file: String?): GitHubAction
       uses = "docker/setup-buildx-action@v3"
     }
     new {
-      uses = "docker/build-push-action@v5"
+      uses = "docker/build-push-action@v6"
       with {
         ["platforms"] = if (arch == "amd64") "linux/amd64" else if (arch == "aarch64") "linux/arm64/v8" else null
         ["context"] = context
