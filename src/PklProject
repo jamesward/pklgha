@@ -6,10 +6,10 @@ package {
     "James Ward <james@jamesward.com>"
   }
   version = read?("env:VERSION")?.replaceFirst("\(name)@", "") ?? "0.0.1-SNAPSHOT"
-  baseUri = "package://jamesward.github.com/pklgha"
+  baseUri = "package://pkg.pkl-lang.org/github.com/jamesward/pklgha"
   packageZipUrl = "https://github.com/jamesward/pklgha/releases/download/\(name)@\(version)/\(name)@\(version).zip"
   sourceCode = "https://github.com/jamesward/pklgha"
-  sourceCodeUrlScheme = "\(sourceCode)/blob/\(name)@\(version)%{path}#L%{line}-L%{endLine}"
+  sourceCodeUrlScheme = "\(sourceCode)/blob/\(name)@\(version)/src%{path}#L%{line}-L%{endLine}"
   documentation = "https://jamesward.github.io/pklgha"
   license = "Apache-2.0"
   description = """

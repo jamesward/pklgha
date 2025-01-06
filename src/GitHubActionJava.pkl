@@ -23,3 +23,16 @@ function gradleTestSteps(taskString: String(!isEmpty)?, workingDirectory: String
     `working-directory` = workingDirectory
   }
 }
+
+function mavenTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?, distribution: String?, javaVersion: String?): Listing<GitHubAction.Step> = new {
+  new {
+    uses = "actions/checkout@v4"
+  }
+
+  setupJava(distribution, javaVersion, "maven")
+
+  new {
+    run = "./mvnw \(taskString ?? "test")"
+    `working-directory` = workingDirectory
+  }
+}
