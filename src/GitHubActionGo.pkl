@@ -1,4 +1,4 @@
-module GitHubActionGo
+module pklgha.GitHubActionGo
 
 import "GitHubAction.pkl"
 

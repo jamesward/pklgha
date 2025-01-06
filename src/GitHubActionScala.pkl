@@ -1,4 +1,4 @@
-module GitHubActionScala
+module pklgha.GitHubActionScala
 
 import "GitHubAction.pkl"
 import "GitHubActionJava.pkl"

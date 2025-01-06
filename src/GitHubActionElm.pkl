@@ -1,4 +1,4 @@
-module GitHubActionElm
+module pklgha.GitHubActionElm
 
 import "GitHubAction.pkl"
 

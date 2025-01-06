@@ -1,4 +1,4 @@
-module GitHubActionPython
+module pklgha.GitHubActionPython
 
 import "GitHubAction.pkl"
 

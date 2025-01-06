@@ -1,4 +1,4 @@
-module GitHubActionDotnet
+module pklgha.GitHubActionDotnet
 
 import "GitHubAction.pkl"
 

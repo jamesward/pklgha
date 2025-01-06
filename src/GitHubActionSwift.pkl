@@ -1,4 +1,4 @@
-module GitHubActionSwift
+module pklgha.GitHubActionSwift
 
 import "GitHubAction.pkl"
 

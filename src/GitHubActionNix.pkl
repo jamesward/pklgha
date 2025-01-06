@@ -1,4 +1,4 @@
-module GitHubActionNix
+module pklgha.GitHubActionNix
 
 import "GitHubAction.pkl"
 

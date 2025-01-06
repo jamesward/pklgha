@@ -1,4 +1,4 @@
-module GitHubActionPkl
+module pklgha.GitHubActionPkl
 
 typealias Action = "release"
 

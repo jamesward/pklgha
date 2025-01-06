@@ -1,4 +1,4 @@
-module GitHubActionOCaml
+module pklgha.GitHubActionOCaml
 
 import "GitHubAction.pkl"
 

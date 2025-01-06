@@ -1,5 +1,5 @@
 @ModuleInfo { minPklVersion = "0.25.1" }
-module GitHubAction
+module pklgha.GitHubAction
 
 hidden Docker = import("GitHubActionDocker.pkl")
 hidden Dotnet = import("GitHubActionDotnet.pkl")

@@ -1,4 +1,4 @@
-module GitHubActionNode
+module pklgha.GitHubActionNode
 
 import "GitHubAction.pkl"
 

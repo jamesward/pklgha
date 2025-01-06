@@ -1,4 +1,4 @@
-module GitHubActionDocker
+module pklgha.GitHubActionDocker
 
 import "GitHubAction.pkl"
 
