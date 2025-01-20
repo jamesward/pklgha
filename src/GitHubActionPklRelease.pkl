@@ -11,7 +11,7 @@ on {
 // todo: refactor with GitHubActionJava
 jobs {
   ["build-and-upload"] = new {
-    `runs-on` = "ubuntu-latest"
+    `runs-on` = "ubuntu-24.04"
 
     permissions {
       contents = "write"
@@ -68,7 +68,7 @@ jobs {
     }
   }
   ["deploy-pages"] = new {
-    `runs-on` = "ubuntu-latest"
+    `runs-on` = "ubuntu-24.04"
     needs = "build-and-upload"
     permissions {
       pages = "write"

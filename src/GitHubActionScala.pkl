@@ -21,6 +21,6 @@ function sbtTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?, 
 }
 
 function sbtTestJob(taskString: String(!isEmpty)?, workingDirectory: String?, javaVersion: String?): GitHubAction.Job = new {
-  `runs-on` = "ubuntu-latest"
+  `runs-on` = "ubuntu-24.04"
   steps = sbtTestSteps(taskString, workingDirectory, javaVersion)
 }
