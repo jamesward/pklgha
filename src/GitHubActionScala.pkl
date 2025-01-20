@@ -11,6 +11,10 @@ function sbtTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?, 
   GitHubActionJava.setupJava(null, javaVersion, "sbt")
 
   new {
+    uses = "sbt/setup-sbt@v1"
+  }
+
+  new {
     run = "sbt \(taskString ?? "test")"
     `working-directory` = workingDirectory
   }
