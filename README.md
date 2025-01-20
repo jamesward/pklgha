@@ -7,7 +7,7 @@ Pkl GitHub Actions
 
 `.github/workflows/hello.pkl`
 ```
-amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.21#/GitHubAction.pkl"
+amends "package://pkg.pkl-lang.org/github.com/jamesward/pklgha/pklgha@0.0.22#/GitHubAction.pkl"
 
 on {
   push {
