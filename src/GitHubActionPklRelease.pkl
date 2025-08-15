@@ -41,7 +41,7 @@ jobs {
 
       new {
         name = "setup pages"
-        uses = "actions/configure-pages@v4"
+        uses = "actions/configure-pages@v5"
       }
       new {
         name = "upload artifact"
