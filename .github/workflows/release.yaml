@@ -5,43 +5,47 @@
     - '*'
 jobs:
   build-and-upload:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-    - name: checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: actions/setup-java@v4
       with:
         distribution: temurin
-        java-version: '17'
+        java-version: '20'
         cache: gradle
-    - uses: gradle/actions/setup-gradle@v3
-    - name: build
-      env:
-        VERSION: ${{ github.ref_name }}
-      run: ./gradlew makePackages
+    - uses: gradle/actions/setup-gradle@v4
+    - run: ./gradlew makePackages -Pversion=${{ github.ref_name }}
     - name: release
       uses: softprops/action-gh-release@v2
       with:
         files: build/generated/pkl/packages/*
-    - name: create docs
-      env:
-        VERSION: ${{ github.ref_name }}
-      run: ./gradlew pkldoc
+    permissions:
+      contents: write
+  pkldoc:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v5
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: '20'
+        cache: gradle
+    - uses: gradle/actions/setup-gradle@v4
+    - run: ./gradlew pkldoc -Pversion=${{ github.ref_name }}
     - name: setup pages
       uses: actions/configure-pages@v4
     - name: upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
         path: build/pkldoc/pkldoc
-    permissions:
-      contents: write
+    needs: build-and-upload
   deploy-pages:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - id: deployment
       name: deploy pages
       uses: actions/deploy-pages@v4
-    needs: build-and-upload
+    needs: pkldoc
     permissions:
       pages: write
       id-token: write

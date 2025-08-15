@@ -7,9 +7,8 @@ typealias Arch = "amd64" | "aarch64"
 function buildPushJob(arch: Arch, context: String?, file: String?): GitHubAction.Job = new {
   `runs-on` = if (arch == "amd64") "ubuntu-24.04" else if (arch == "aarch64") "ubuntu-24.04-arm" else throw("unsupported architecture")
   steps {
-    new {
-      uses = "actions/checkout@v4"
-    }
+    GitHubAction.stepCheckout
+
     new {
       uses = "docker/login-action@v3"
       with {

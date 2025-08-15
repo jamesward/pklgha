@@ -3,9 +3,7 @@ module pklgha.GitHubActionElm
 import "GitHubAction.pkl"
 
 function setupElm(version: String?): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+  GitHubAction.stepCheckout
   new {
     uses = "jorelali/setup-elm@v6"
     with {

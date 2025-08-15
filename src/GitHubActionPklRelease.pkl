@@ -1,4 +1,8 @@
-amends "GitHubAction.pkl"
+module pklgha.GitHubActionPklRelease
+
+extends "GitHubAction.pkl"
+
+import "GitHubActionJava.pkl"
 
 on {
   push {
@@ -8,7 +12,6 @@ on {
   }
 }
 
-// todo: refactor with GitHubActionJava
 jobs {
   ["build-and-upload"] = new {
     `runs-on` = "ubuntu-24.04"
@@ -18,28 +21,8 @@ jobs {
     }
 
     steps {
-      new {
-        name = "checkout"
-        uses = "actions/checkout@v4"
-      }
-      new {
-        uses = "actions/setup-java@v4"
-        with {
-          ["distribution"] = "temurin"
-          ["java-version"] = "17"
-          ["cache"] = "gradle"
-        }
-      }
-      new {
-        uses = "gradle/actions/setup-gradle@v3"
-      }
-      new {
-        name = "build"
-        env {
-          ["VERSION"] = "${{ github.ref_name }}"
-        }
-        run = "./gradlew makePackages"
-      }
+      ...GitHubActionJava.gradleSteps("makePackages -Pversion=${{ github.ref_name }}", null)
+
       new {
         name = "release"
         uses = "softprops/action-gh-release@v2"
@@ -47,13 +30,15 @@ jobs {
           ["files"] = "build/generated/pkl/packages/*"
         }
       }
-      new {
-        name = "create docs"
-        env {
-          ["VERSION"] = "${{ github.ref_name }}"
-        }
-        run = "./gradlew pkldoc"
-      }
+    }
+  }
+
+  ["pkldoc"] = new {
+    `runs-on` = "ubuntu-24.04"
+    needs = "build-and-upload"
+    steps {
+      ...GitHubActionJava.gradleSteps("pkldoc -Pversion=${{ github.ref_name }}", null)
+
       new {
         name = "setup pages"
         uses = "actions/configure-pages@v4"
@@ -67,9 +52,10 @@ jobs {
       }
     }
   }
+
   ["deploy-pages"] = new {
     `runs-on` = "ubuntu-24.04"
-    needs = "build-and-upload"
+    needs = "pkldoc"
     permissions {
       pages = "write"
       `id-token` = "write"

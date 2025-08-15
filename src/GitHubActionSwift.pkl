@@ -3,9 +3,7 @@ module pklgha.GitHubActionSwift
 import "GitHubAction.pkl"
 
 function testSteps(): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+  GitHubAction.stepCheckout
   new {
     uses = "atomicjar/testcontainers-cloud-setup-action@v1"
     with {

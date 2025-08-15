@@ -1,11 +1,10 @@
 @ModuleInfo { minPklVersion = "0.25.1" }
-module pklgha.GitHubAction
+open module pklgha.GitHubAction
 
 hidden Docker = import("GitHubActionDocker.pkl")
 hidden Dotnet = import("GitHubActionDotnet.pkl")
 hidden Elm = import("GitHubActionElm.pkl")
 hidden Go = import("GitHubActionGo.pkl")
-hidden Pkl = import("GitHubActionPkl.pkl")
 hidden Java = import("GitHubActionJava.pkl")
 hidden Nix = import("GitHubActionNix.pkl")
 hidden Node = import("GitHubActionNode.pkl")
@@ -105,6 +104,10 @@ class Job {
 }
 
 jobs: Mapping<String, Job>
+
+hidden stepCheckout = new Step {
+  uses = "actions/checkout@v5"
+}
 
 output {
   // todo: inject file name

@@ -5,7 +5,7 @@ package {
   authors {
     "James Ward <james@jamesward.com>"
   }
-  version = read?("env:VERSION")?.replaceFirst("\(name)@", "") ?? "0.0.1-SNAPSHOT"
+  version = read?("env:VERSION")?.replaceFirst("\(name)@", "") ?? "0.0.0"
   baseUri = "package://pkg.pkl-lang.org/github.com/jamesward/pklgha"
   packageZipUrl = "https://github.com/jamesward/pklgha/releases/download/\(name)@\(version)/\(name)@\(version).zip"
   sourceCode = "https://github.com/jamesward/pklgha"

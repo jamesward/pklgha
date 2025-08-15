@@ -3,9 +3,7 @@ module pklgha.GitHubActionOCaml
 import "GitHubAction.pkl"
 
 function testSteps(taskString: String(!isEmpty)?, version: String?): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+  GitHubAction.stepCheckout
   new {
     name = "Set-up OCaml 5.1"
     uses = "ocaml/setup-ocaml@v3"

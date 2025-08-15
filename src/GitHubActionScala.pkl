@@ -4,9 +4,7 @@ import "GitHubAction.pkl"
 import "GitHubActionJava.pkl"
 
 function sbtTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?, javaVersion: String?): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+  GitHubAction.stepCheckout
 
   GitHubActionJava.setupJava(null, javaVersion, "sbt")
 

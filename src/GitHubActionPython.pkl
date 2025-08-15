@@ -3,9 +3,7 @@ module pklgha.GitHubActionPython
 import "GitHubAction.pkl"
 
 function testSteps(versionFile: String(!isEmpty)?, cacheDependencyPath: String?): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+  GitHubAction.stepCheckout
   new {
     uses = "actions/setup-python@v5"
     with {

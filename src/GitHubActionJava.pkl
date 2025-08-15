@@ -11,23 +11,27 @@ function setupJava(distribution: String?, javaVersion: String?, cache: String?):
   }
 }
 
-function gradleTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+function gradleSteps(taskString: String(!isEmpty), workingDirectory: String?): Listing<GitHubAction.Step> = new {
+  GitHubAction.stepCheckout
 
   setupJava(null, null, "gradle")
 
   new {
-    run = "./gradlew \(taskString ?? "test")"
+    uses = "gradle/actions/setup-gradle@v4"
+  }
+
+  new {
+    run = "./gradlew \(taskString)"
     `working-directory` = workingDirectory
   }
 }
 
+function gradleTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?): Listing<GitHubAction.Step> = new {
+  ...gradleSteps(taskString ?? "test", workingDirectory)
+}
+
 function mavenTestSteps(taskString: String(!isEmpty)?, workingDirectory: String?, distribution: String?, javaVersion: String?): Listing<GitHubAction.Step> = new {
-  new {
-    uses = "actions/checkout@v4"
-  }
+  GitHubAction.stepCheckout
 
   setupJava(distribution, javaVersion, "maven")
 
