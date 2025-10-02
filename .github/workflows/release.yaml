@@ -13,7 +13,7 @@ jobs:
         distribution: temurin
         java-version: '20'
         cache: gradle
-    - uses: gradle/actions/setup-gradle@v4
+    - uses: gradle/actions/setup-gradle@v5
     - run: ./gradlew makePackages -Pversion=${{ github.ref_name }}
     - name: release
       uses: softprops/action-gh-release@v2
@@ -30,7 +30,7 @@ jobs:
         distribution: temurin
         java-version: '20'
         cache: gradle
-    - uses: gradle/actions/setup-gradle@v4
+    - uses: gradle/actions/setup-gradle@v5
     - run: ./gradlew pkldoc -Pversion=${{ github.ref_name }}
     - name: setup pages
       uses: actions/configure-pages@v5
