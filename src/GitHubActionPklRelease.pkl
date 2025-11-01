@@ -45,7 +45,7 @@ jobs {
       }
       new {
         name = "upload artifact"
-        uses = "actions/upload-pages-artifact@v3"
+        uses = "actions/upload-pages-artifact@v4"
         with {
           ["path"] = "build/pkldoc/pkldoc"
         }

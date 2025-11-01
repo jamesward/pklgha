@@ -3,7 +3,7 @@ module pklgha.GitHubActionJava
 import "GitHubAction.pkl"
 
 function setupJava(distribution: String?, javaVersion: String?, cache: String?): GitHubAction.Step = new {
-  uses = "actions/setup-java@v4"
+  uses = "actions/setup-java@v5"
   with {
     ["distribution"] = distribution ?? "temurin"
     ["java-version"] = javaVersion ?? "20"
@@ -17,7 +17,7 @@ function gradleSteps(taskString: String(!isEmpty), workingDirectory: String?): L
   setupJava(null, null, "gradle")
 
   new {
-    uses = "gradle/actions/setup-gradle@v4"
+    uses = "gradle/actions/setup-gradle@v5"
   }
 
   new {

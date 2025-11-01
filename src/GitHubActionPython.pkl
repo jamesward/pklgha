@@ -5,7 +5,7 @@ import "GitHubAction.pkl"
 function testSteps(versionFile: String(!isEmpty)?, cacheDependencyPath: String?): Listing<GitHubAction.Step> = new {
   GitHubAction.stepCheckout
   new {
-    uses = "actions/setup-python@v5"
+    uses = "actions/setup-python@v6"
     with {
       ["python-version-file"] = versionFile ?? ".python-version"
       ["cache"] = "pip"

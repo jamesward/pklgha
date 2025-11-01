@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v5
-    - uses: actions/setup-java@v4
+    - uses: actions/setup-java@v5
       with:
         distribution: temurin
         java-version: '20'
         cache: gradle
-    - uses: gradle/actions/setup-gradle@v4
+    - uses: gradle/actions/setup-gradle@v5
     - run: ./gradlew makePackages -Pversion=${{ github.ref_name }}
     - name: release
       uses: softprops/action-gh-release@v2
@@ -25,17 +25,17 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v5
-    - uses: actions/setup-java@v4
+    - uses: actions/setup-java@v5
       with:
         distribution: temurin
         java-version: '20'
         cache: gradle
-    - uses: gradle/actions/setup-gradle@v4
+    - uses: gradle/actions/setup-gradle@v5
     - run: ./gradlew pkldoc -Pversion=${{ github.ref_name }}
     - name: setup pages
       uses: actions/configure-pages@v5
     - name: upload artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v4
       with:
         path: build/pkldoc/pkldoc
     needs: build-and-upload

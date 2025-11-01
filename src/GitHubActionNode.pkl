@@ -5,7 +5,7 @@ import "GitHubAction.pkl"
 function testSteps(taskString: String(!isEmpty)?, version: String?, cacheDependencyFile: String?): Listing<GitHubAction.Step> = new {
   GitHubAction.stepCheckout
   new {
-    uses = "actions/setup-node@v4"
+    uses = "actions/setup-node@v6"
     with {
       ["node-version"] = version
       ["cache"] = "npm"

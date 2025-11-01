@@ -6,7 +6,7 @@ function testSteps(taskString: String(!isEmpty)?, version: String?, workingDirec
   GitHubAction.stepCheckout
 
   new {
-    uses = "actions/setup-dotnet@v4"
+    uses = "actions/setup-dotnet@v5"
     with {
       ["dotnet-version"] = version
     }
