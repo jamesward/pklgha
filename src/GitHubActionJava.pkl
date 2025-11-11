@@ -6,7 +6,7 @@ function setupJava(distribution: String?, javaVersion: String?, cache: String?):
   uses = "actions/setup-java@v5"
   with {
     ["distribution"] = distribution ?? "temurin"
-    ["java-version"] = javaVersion ?? "20"
+    ["java-version"] = javaVersion ?? "21"
     ["cache"] = cache
   }
 }

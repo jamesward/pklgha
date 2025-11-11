@@ -1,5 +1,5 @@
 plugins {
-    id("org.pkl-lang") version "0.29.1"
+    id("org.pkl-lang") version "0.30.0"
 //  id("com.jamesward.github-api-gradle-plugin") version "0.0.2"
 }
 

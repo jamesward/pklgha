@@ -11,10 +11,10 @@ jobs:
     - uses: actions/setup-java@v5
       with:
         distribution: temurin
-        java-version: '20'
+        java-version: '21'
         cache: gradle
     - uses: gradle/actions/setup-gradle@v5
-    - run: ./gradlew makePackages -Pversion=${{ github.ref_name }}
+    - run: ./gradlew makePackages --info -Pversion=${{ github.ref_name }}
     - name: release
       uses: softprops/action-gh-release@v2
       with:
@@ -28,10 +28,10 @@ jobs:
     - uses: actions/setup-java@v5
       with:
         distribution: temurin
-        java-version: '20'
+        java-version: '21'
         cache: gradle
     - uses: gradle/actions/setup-gradle@v5
-    - run: ./gradlew pkldoc -Pversion=${{ github.ref_name }}
+    - run: ./gradlew pkldoc --info -Pversion=${{ github.ref_name }}
     - name: setup pages
       uses: actions/configure-pages@v5
     - name: upload artifact
