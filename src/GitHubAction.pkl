@@ -20,6 +20,7 @@ typealias WorkFlowType = "completed"
 
 
 class Push {
+  branches: Listing<String>?
   tags: Listing<String>?
   paths: Listing<String>?
 }
