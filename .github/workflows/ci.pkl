@@ -1,0 +1,42 @@
+// pkl eval ci.pkl -f yaml -o ci.yaml
+
+amends "../../src/GitHubAction.pkl"
+
+on {
+  push {
+    branches {
+      "main"
+    }
+  }
+  pull_request {}
+}
+
+concurrency {
+  group = "${{ github.workflow }}-${{ github.ref }}"
+  `cancel-in-progress` = true
+}
+
+jobs {
+  ["build"] = new {
+    `runs-on` = "ubuntu-24.04"
+    steps {
+      new {
+        uses = "actions/checkout@v7"
+      }
+      new {
+        uses = "actions/setup-java@v6"
+        with {
+          ["distribution"] = "temurin"
+          ["java-version"] = "25"
+          ["cache"] = "gradle"
+        }
+      }
+      new {
+        uses = "gradle/actions/setup-gradle@v6"
+      }
+      new {
+        run = "./gradlew makePackages"
+      }
+    }
+  }
+}

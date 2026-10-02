@@ -1,3 +1,6 @@
 /.gradle/
 /.idea/
 /build/
+
+# Agent Skills extracted by the build
+/.kiro/skills/

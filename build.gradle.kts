@@ -1,4 +1,5 @@
 plugins {
+    id("com.skillsjars.gradle-plugin") version "0.1.4"
     id("org.pkl-lang") version "0.30.0"
 //  id("com.jamesward.github-api-gradle-plugin") version "0.0.2"
 }
@@ -41,4 +42,17 @@ pkl {
         }
     }
 
+}
+
+// Agent Skills, extracted with ./gradlew extractSkillsJars
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    skill("com.jamesward:skills:0.0.10")
+}
+
+skillsjars {
+    outputDir.set(layout.projectDirectory.dir(".kiro/skills"))
 }
