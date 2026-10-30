@@ -27,5 +27,6 @@ source/doc tools for API questions. In Claude Code its tools are deferred: load 
 ## Exceptions to zen-of-projects
 
 - **Workflows are generated from Pkl:** edit `.github/workflows/*.pkl`, then regenerate the YAML with `pkl eval -f yaml -o <name>.yaml <name>.pkl` (in `.github/workflows/`). Never edit the generated YAML by hand.
-- **Public API:** the modules in `src/` are a published package used by other repos (for example cfn-pkl-extras and easyracer). Changing a default they emit (action versions, Java version) changes every dependent's workflows on its next upgrade: make such changes in their own PR labeled `needs-human`, not with dependency bumps.
+- **Action versions are dependencies:** the `uses:` versions in `src/*.pkl` (for example `actions/checkout@v7` in `GitHubAction.pkl`) are what dependents' workflows get. Bump each to its latest major (`git ls-remote --tags https://github.com/<owner>/<action>`) with the other dependencies, regenerate `.github/workflows/*.yaml` (this repo's own workflows amend `../../src/*.pkl`), and merge on passing CI like any bump.
+- **Public API:** the modules in `src/` are a published package used by other repos (for example cfn-pkl-extras and easyracer). Changing any other default they emit (the Java version, distributions, step structure, inputs) changes every dependent's workflows on its next upgrade: make such changes in their own PR labeled `needs-human`.
 - **Releases:** never tag or release in the maintenance routine.
