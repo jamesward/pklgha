@@ -107,7 +107,7 @@ class Job {
 jobs: Mapping<String, Job>
 
 hidden stepCheckout = new Step {
-  uses = "actions/checkout@v5"
+  uses = "actions/checkout@v7"
 }
 
 output {
