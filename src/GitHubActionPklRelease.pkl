@@ -25,7 +25,7 @@ jobs {
 
       new {
         name = "release"
-        uses = "softprops/action-gh-release@v2"
+        uses = "softprops/action-gh-release@v3"
         with {
           ["files"] = "build/generated/pkl/packages/*"
         }
@@ -41,11 +41,11 @@ jobs {
 
       new {
         name = "setup pages"
-        uses = "actions/configure-pages@v5"
+        uses = "actions/configure-pages@v6"
       }
       new {
         name = "upload artifact"
-        uses = "actions/upload-pages-artifact@v4"
+        uses = "actions/upload-pages-artifact@v5"
         with {
           ["path"] = "build/pkldoc/pkldoc"
         }
@@ -68,7 +68,7 @@ jobs {
       new {
         name = "deploy pages"
         id = "deployment"
-        uses = "actions/deploy-pages@v4"
+        uses = "actions/deploy-pages@v5"
       }
     }
   }
